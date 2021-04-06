@@ -17,6 +17,12 @@ export default class AlunoInfos extends Component<IProps> {
         </View>
         <View>
           <Text style={styles.info}>
+            <Text style={styles.cabecalho}>Idade:</Text>
+            {this.props.aluno.idade}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.info}>
             <Text style={styles.cabecalho}>Curso:</Text>
             {this.props.aluno.curso?.descricao}
           </Text>

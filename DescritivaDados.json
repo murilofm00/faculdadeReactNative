@@ -1,0 +1,94 @@
+{
+    "cursos": [
+        {
+            "id": 1,
+            "descricao": "Sistemas de Informação"
+        },
+        {
+            "id": 2,
+            "descricao": "Administração"
+        },
+        {
+            "id": 3,
+            "descricao": "História"
+        },
+        {
+            "id": 4,
+            "descricao": "Letras"
+        },
+        {
+            "id": 5,
+            "descricao": "Direito"
+        }
+    ],
+    "periodos": [
+        {
+            "id": 1,
+            "descricao": "1º Período"
+        },
+        {
+            "id": 2,
+            "descricao": "2º Período"
+        },
+        {
+            "id": 3,
+            "descricao": "3º Período"
+        },
+        {
+            "id": 4,
+            "descricao": "4º Período"
+        },
+        {
+            "id": 5,
+            "descricao": "5º Período"
+        },
+        {
+            "id": 6,
+            "descricao": "6º Período"
+        },
+        {
+            "id": 7,
+            "descricao": "7º Período"
+        },
+        {
+            "id": 8,
+            "descricao": "8º Período"
+        },
+        {
+            "id": 9,
+            "descricao": "9º Período"
+        },
+        {
+            "id": 10,
+            "descricao": "10º Período"
+        }
+    ],
+    "turnos": [
+        {
+            "id": 1,
+            "descricao": "Diurno"
+        },
+        {
+            "id": 2,
+            "descricao": "Noturno"
+        },
+        {
+            "id": 3,
+            "descricao": "Integral"
+        }
+    ],
+    "sexos": [
+        {
+            "id": 1,
+            "descricao": "Masculino"
+        },
+        {
+            "id": 2,
+            "descricao": "Feminino"
+        },
+        {
+            "id": 3,
+            "descricao": "Não declarar"
+        }
+    ]
+}
