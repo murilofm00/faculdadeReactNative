@@ -31,7 +31,6 @@ export default class PickerDescritiva extends Component<IProps> {
   }
   valueChange(itemId: number) {
     const item = this.props.itens.find((item) => item.id == itemId);
-    console.log(item);
     if (item) {
       this.props.valueChange(item);
     }

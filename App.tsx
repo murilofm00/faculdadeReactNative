@@ -20,7 +20,8 @@ export default class App extends Component<{}, IState> {
     super(props);
     this.state = {
       aluno: {
-      }
+        // jaGanhouBolsa: false,
+      },
     };
     // this.updateAluno = this.updateAluno.bind(this);
   }
@@ -30,7 +31,10 @@ export default class App extends Component<{}, IState> {
         <SafeAreaView>
           <AppBar />
           <View style={styles.container}>
-            <AlunoForm aluno={this.state.aluno} ></AlunoForm>
+            <AlunoForm
+              aluno={this.state.aluno}
+              submitForm={(aluno) => this.setState({ aluno: aluno })}
+            ></AlunoForm>
             <Text style={styles.titulo}>Informações Inseridas:</Text>
             <AlunoInfos aluno={this.state.aluno} />
           </View>

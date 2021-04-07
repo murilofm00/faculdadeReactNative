@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  Switch,
+} from "react-native";
 import { Aluno } from "../models/Aluno";
 import PickerDescritiva from "./PickerDescritiva";
 import DescritivaDados from "../../DescritivaDados.json";
@@ -9,6 +17,7 @@ import { Turno } from "../models/Turno";
 import { Sexo } from "../models/Sexo";
 // import isEmpty from 'lodash/isEmpty';
 import { get, isEmpty } from "lodash";
+import Slider from "@react-native-community/slider";
 
 interface IProps {
   aluno: Aluno;
@@ -26,11 +35,17 @@ export default class AlunoInfos extends Component<IProps, IState> {
     super(props);
     this.state = {
       ...DescritivaDados,
-      aluno: {},
+      aluno: {
+        nome: "",
+        idade: "",
+        // jaGanhouBolsa: false
+      },
     };
 
     this.updateAluno = this.updateAluno.bind(this);
     this.submitAluno = this.submitAluno.bind(this);
+    this.formIsValid = this.formIsValid.bind(this);
+    this.atributoIsInvalid = this.atributoIsInvalid.bind(this);
   }
 
   render() {
@@ -40,13 +55,14 @@ export default class AlunoInfos extends Component<IProps, IState> {
         <TextInput
           style={[styles.input]}
           placeholder="Digite seu nome"
-          value={this.props.aluno.nome}
+          value={this.state.aluno.nome}
           onChangeText={(text) => this.updateAluno("nome", text)}
         ></TextInput>
         <TextInput
           style={styles.input}
           placeholder="Idade"
-          onChangeText={(text) => this.updateAluno("idade", parseInt(text))}
+          value={this.state.aluno.idade}
+          onChangeText={(text) => this.updateAluno("idade", text)}
           keyboardType="number-pad"
         ></TextInput>
         <PickerDescritiva
@@ -70,6 +86,48 @@ export default class AlunoInfos extends Component<IProps, IState> {
             this.updateAluno("turno", turnoSelecionado)
           }
         />
+        <PickerDescritiva
+          itens={this.state.sexos}
+          label="Sexo"
+          valueChange={(sexoSelecionado) =>
+            this.updateAluno("sexo", sexoSelecionado)
+          }
+        />
+        <View style={styles.campoCustom}>
+          <Text>Renda:</Text>
+          <Slider
+            style={{ flex: 1, marginHorizontal: 8 }}
+            minimumValue={0}
+            maximumValue={100000}
+            minimumTrackTintColor="#1c9ed6"
+            maximumTrackTintColor="#292c2e"
+            step={0.5}
+            onValueChange={(valorRenda) =>
+              this.updateAluno("renda", valorRenda)
+            }
+          />
+          <Text>
+            {this.state.aluno.renda?.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Text>
+        </View>
+        <View style={styles.campoCustom}>
+          <Text style={{ flex: 1, marginRight: 5 }}>Já Ganhou bolsa:</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={this.state.aluno.jaGanhouBolsa ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(switchValor) =>
+              this.updateAluno("jaGanhouBolsa", switchValor)
+            
+            
+            
+            }
+            value={this.state.aluno.jaGanhouBolsa}
+          />
+        </View>
         <Button title="Salvar" onPress={this.submitAluno} />
       </View>
     );
@@ -84,8 +142,10 @@ export default class AlunoInfos extends Component<IProps, IState> {
     }));
   }
 
-  atributoIsValid(attr: string) {
-    return isEmpty(get(this.state.aluno, attr));
+  atributoIsInvalid(attr: string) {
+    const valorAttr = get(this.state.aluno, attr);
+
+    return valorAttr == undefined || valorAttr == '';
   }
 
   submitAluno() {
@@ -94,13 +154,31 @@ export default class AlunoInfos extends Component<IProps, IState> {
     }
   }
 
-  formIsValid() {
-    const aluno = this.state.aluno;
+  async formIsValid() {
+    const alunoAtributos: string[] = [
+      "nome",
+      "idade",
+      "curso",
+      "periodo",
+      "turno",
+      "sexo",
+      "renda",
+      "jaGanhouBolsa",
+    ];
     let invalidos: string[] = [];
-    for (let attr in aluno) {
-      this.atributoIsValid(attr) && invalidos.push(attr);
+    for (let attr of alunoAtributos) {
+      if (this.atributoIsInvalid(attr)) {
+        invalidos.push(attr);
+      }
     }
     if (invalidos.length > 0) {
+      console.log(
+        `Os seguintes campos não foram preenchidos: ${invalidos.join(", ")}.`
+      );
+      Alert.alert(
+        "Campos não preenchidos",
+        `Os seguintes campos não foram preenchidos: ${invalidos.join(", ")}.`
+      );
       return false;
     }
     return true;
@@ -119,6 +197,11 @@ const styles = StyleSheet.create({
     borderColor: "#545454",
     borderRadius: 5,
     padding: 7,
+    marginBottom: 15,
+  },
+  campoCustom: {
+    flex: 1,
+    flexDirection: "row",
     marginBottom: 15,
   },
 });

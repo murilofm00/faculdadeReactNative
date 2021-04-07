@@ -23,6 +23,21 @@ export default class AlunoInfos extends Component<IProps> {
         </View>
         <View>
           <Text style={styles.info}>
+            <Text style={styles.cabecalho}>Renda:</Text>
+            {this.props.aluno.renda?.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.info}>
+            <Text style={styles.cabecalho}>Já ganhou bolsa:</Text>
+            {this.props.aluno.jaGanhouBolsa ? "Sim" : "Não"}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.info}>
             <Text style={styles.cabecalho}>Curso:</Text>
             {this.props.aluno.curso?.descricao}
           </Text>
