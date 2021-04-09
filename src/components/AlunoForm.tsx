@@ -15,8 +15,7 @@ import { Curso } from "../models/Curso";
 import { Periodo } from "../models/Periodo";
 import { Turno } from "../models/Turno";
 import { Sexo } from "../models/Sexo";
-// import isEmpty from 'lodash/isEmpty';
-import { get, isEmpty } from "lodash";
+import { get } from "lodash";
 import Slider from "@react-native-community/slider";
 
 interface IProps {
@@ -38,7 +37,6 @@ export default class AlunoInfos extends Component<IProps, IState> {
       aluno: {
         nome: "",
         idade: "",
-        // jaGanhouBolsa: false
       },
     };
 
